@@ -1,0 +1,919 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+/* ========== RESET & GLOBAL ========== */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+:root {
+  /* LIGHT THEME COLORS */
+  --main-bg-color-light: #f0f2f5;
+  --header-bg-color-light: #ffffff;
+  --border-color-light: #ced0d4;
+  --primary-text-color-light: #050505;
+  --secondary-text-color-light: #65676b;
+
+  /* DARK THEME COLORS */
+  --main-bg-color-dark: #18191a;
+  --header-bg-color-dark: #242526;
+  --border-color-dark: #393a3b;
+  --primary-text-color-dark: #e4e6eb;
+  --secondary-text-color-dark: #b0b3b8;
+}
+
+/* ========== APP THEMES ========== */
+.App-dark {
+  --main-bg-color: var(--main-bg-color-dark);
+  --header-bg-color: var(--header-bg-color-dark);
+  --border-color: var(--border-color-dark);
+  --primary-text-color: var(--primary-text-color-dark);
+  --secondary-text-color: var(--secondary-text-color-dark);
+}
+
+.App-light {
+  --main-bg-color: var(--main-bg-color-light);
+  --header-bg-color: var(--header-bg-color-light);
+  --border-color: var(--border-color-light);
+  --primary-text-color: var(--primary-text-color-light);
+  --secondary-text-color: var(--secondary-text-color-light);
+}
+
+.App-dark,
+.App-light {
+  background-color: var(--main-bg-color);
+  color: var(--primary-text-color);
+  overflow: hidden;
+}
+
+/* ========== HEADER ========== */
+.Header {
+  background-color: var(--header-bg-color);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+
+.Header .place {
+  font-size: 1.2rem;
+}
+
+.Header .place i {
+  margin-right: 0.25rem;
+}
+
+/* ========== MAIN ========== */
+.Main {
+  margin: 0 7rem;
+  padding: 20px 0;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 821px) {
+  .Main {
+    margin: 0 2rem;
+  }
+}
+
+/* ========== CURRENT WEATHER ========== */
+.CurrentWeather {
+  display: flex;
+}
+
+@media screen and (max-width: 745px) {
+  .CurrentWeather {
+    flex-direction: column;
+  }
+}
+
+.CurrentWeather .temperature,
+.CurrentWeather .other-infos {
+  padding: 1rem;
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 1rem;
+}
+
+.CurrentWeather .temperature {
+  width: 250px;
+  height: auto;
+}
+
+.CurrentWeather .temperature .value .real {
+  font-size: 3rem;
+}
+
+.CurrentWeather .temperature .value .feels-like {
+  font-size: 1.1rem;
+}
+
+.CurrentWeather .temperature .summary {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.CurrentWeather .other-infos {
+  flex: 1;
+  height: auto;
+  margin-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 745px) {
+  .CurrentWeather .other-infos {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}
+
+.CurrentWeather .other-infos .widget {
+  width: 182px;
+}
+
+.CurrentWeather .other-infos .widget .widget-container {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.CurrentWeather .other-infos .widget .widget-container .info {
+  display: flex;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.CurrentWeather .other-infos .widget .widget-container .info .icon {
+  margin-right: 0.5rem;
+}
+
+/* ========== FORECAST ========== */
+.Forecast {
+  margin-top: 2rem;
+  user-select: none;
+}
+
+.Forecast .widget-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  padding-top: 1.5rem;
+}
+
+.Forecast .widget {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+  margin-right: 0.75rem;
+  min-width: 115px;
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 1rem;
+}
+
+.Forecast .widget .day {
+  position: absolute;
+  top: -1.5rem;
+}
+
+.Forecast .widget .icon-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.75rem 0;
+}
+
+.Forecast .widget .icon-temp img {
+  width: 40px;
+  margin-right: 0.25rem;
+}
+
+.Forecast .widget .wind {
+  margin-top: 0.25rem;
+  display: flex;
+}
+
+.Forecast .widget .wind .speed {
+  margin-right: 0.25rem;
+}
+
+.Forecast .widget .wind .wind-dir {
+  font-size: 0.8rem;
+  margin-left: 0.25rem;
+}
+
+/* ========== SEARCH BAR ========== */
+.search-container {
+  display: flex;
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 20px;
+  padding: 0 1rem;
+}
+
+.search-container .search-icon,
+.search-container .search-input input {
+  height: 40px;
+}
+
+.search-container .search-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  padding-right: 1rem;
+}
+
+.search-container .search-input input {
+  background-color: transparent;
+  color: var(--primary-text-color);
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-results {
+  border-radius: 0.5rem;
+  background-color: var(--header-bg-color);
+  position: absolute;
+  z-index: 1;
+  top: calc(70px + 0.25rem);
+  width: 50%;
+  max-height: 50vh;
+  overflow-x: hidden;
+}
+
+.search-results .results-container .result {
+  padding: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.search-results .results-container .result:hover {
+  background-color: var(--border-color);
+}
+
+/* ========== SETTINGS ========== */
+.Settings {
+  display: flex;
+  font-size: 1.25rem;
+}
+
+.Settings .theme-toggler .theme-buttons {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  height: 25px;
+  width: 25px;
+  overflow: hidden;
+}
+
+.Settings .theme-toggler .theme-buttons .light-theme-btn,
+.Settings .theme-toggler .theme-buttons .dark-theme-btn {
+  position: absolute;
+  top: 25px;
+  transition: top 0.5s ease-in-out;
+}
+
+.Settings .theme-toggler .theme-buttons .active {
+  top: 0;
+}
+
+.Settings .settings-btn {
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.Settings .settings-menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(70px + 0.25rem);
+  right: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--header-bg-color);
+  width: 250px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  transform: scale(0.1);
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.Settings .settings-menu.open {
+  transform: scale(1);
+  visibility: visible;
+}
+
+.Settings .settings-menu .measurement-systems {
+  padding: 0.5rem;
+}
+
+.Settings .settings-menu .measurement-systems .systems {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.Settings .settings-menu .measurement-systems .system {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 2rem;
+  margin: 0.25rem 0.25rem 0.25rem 0;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.Settings .settings-menu .measurement-systems .system.active {
+  background-color: var(--primary-text-color);
+  color: var(--main-bg-color);
+}
+
+/* ========== LOADER ========== */
+.Loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Loader .loader {
+  width: 80px;
+  height: 40px;
+  background: radial-gradient(circle 25px at top right, #ffd738 40%, transparent),
+    transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.Loader .loader::before,
+.Loader .loader::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: -40px;
+  width: 36px;
+  height: 20px;
+  background: radial-gradient(farthest-side, #fff 96%, transparent) 100% 100%/30% 60%,
+    radial-gradient(farthest-side, #fff 96%, transparent) 70% 0/50% 100%,
+    radial-gradient(farthest-side, #fff 96%, transparent) 0 100%/36% 68%,
+    radial-gradient(farthest-side, #fff 96%, transparent) 27% 18%/26% 40%,
+    linear-gradient(#fff 0 0) bottom/67% 58%;
+  background-repeat: no-repeat;
+  animation: l10 2s linear infinite;
+}
+
+.Loader .loader::after {
+  top: 15px;
+  --l: 200%;
+}
+
+@keyframes l10 {
+  100% {
+    left: var(--l, 105%);
+  }
+}
+
+
+/*------------------------------*/
+
+/* GENERAL STYLES */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* DARK MODE CARDS */
+.weather-card {
+  background: linear-gradient(145deg, #334155, #1e293b);
+  color: #f1f5f9;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  padding: 20px;
+  margin: 10px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(145deg, #475569, #334155);
+}
+
+/* SCROLLABLE HOURLY + DAILY SECTIONS */
+.scrollable-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #60a5fa #1e293b;
+  overflow: scroll;
+}
+
+/* Fancy Scrollbar */
+.scrollable-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #60a5fa, #f472b6, #a78bfa);
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #93c5fd, #f9a8d4, #c4b5fd);
+}
+
+/* HOURLY CARD STYLE */
+.hour-card {
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  color: white;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  min-width: 130px;
+  transition: transform 0.3s;
+}
+
+.hour-card:hover {
+  transform: scale(1.05);
+}
+
+/* DAILY CARD STYLE */
+.daily-card {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 180px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.daily-card:hover {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .weather-card {
+    padding: 16px;
+  }
+
+  .hour-card,
+  .daily-card {
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  .scrollable-container {
+    gap: 12px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weather-card {
+    margin: 8px;
+    padding: 12px;
+  }
+
+  .hour-card,
+  .daily-card {
+    min-width: 100px;
+  }
+}
+
+
+/*-------------------------------------*/
+
+
+/* FORECAST - UPDATED */
+.Forecast {
+  padding: 2rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.Forecast h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-text-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.Forecast .widget-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  overflow-x: auto; /* enable horizontal scrolling */
+  overflow-y: hidden;
+  padding: 4rem 0;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+/* Fancy colorful custom scrollbar */
+.Forecast .widget-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.Forecast .widget-container::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #d1d1d1, #e9ecef);
+  border-radius: 10px;
+}
+
+.Forecast .widget-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.Forecast .widget-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #0072ff, #00c6ff);
+}
+
+/* Each weather widget */
+.Forecast .widget {
+  min-width: 130px;
+  background: linear-gradient(145deg, #ffffffaa, #e3f2fdcc);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  color: var(--primary-text-color);
+  flex-shrink: 0; /* prevents shrinking */
+}
+
+.Forecast .widget:hover {
+  transform: translateY(-6px) scale(1.05);
+  background: linear-gradient(145deg, #bbdefb, #e3f2fd);
+}
+
+/* Temperature & icons inside widget */
+.Forecast .widget img {
+  width: 55px;
+  margin: 0.5rem 0;
+}
+
+.Forecast .widget .temp {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.Forecast .widget .wind {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+/* Make it more compact for smaller screens */
+@media (max-width: 768px) {
+  .Forecast {
+    padding: 1rem;
+  }
+  .Forecast .widget {
+    min-width: 110px;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .Forecast .widget-container {
+    gap: 0.5rem;
+  }
+  .Forecast .widget {
+    min-width: 95px;
+    font-size: 0.85rem;
+  }
+}
+
+
+
+/*-------------------------------------*/
+
+
+
+/***************************
+ 🌤️ HEADER SECTION STYLING
+***************************/
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(120deg, #00b4d8, #48cae4, #90e0ef);
+  color: #023047;
+  padding: 15px 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode .Header {
+  background: linear-gradient(135deg, #1e1e2f, #252542, #333355);
+  color: #f1f5f9;
+  box-shadow: 0 0 15px rgba(149, 76, 233, 0.6);
+}
+
+/***************************
+ 📍 PLACE SECTION
+***************************/
+.Place {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #1d3557;
+  transition: color 0.3s ease;
+}
+
+.Place i {
+  color: #ff006e;
+  font-size: 1.3rem;
+  animation: pulseLocation 1.5s infinite;
+}
+
+@keyframes pulseLocation {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+body.dark-mode .Place {
+  color: #f9fafb;
+}
+
+body.dark-mode .Place i {
+  color: #00f5d4;
+}
+
+/***************************
+ 🔍 SEARCH BAR STYLING
+***************************/
+.search-container {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding: 8px 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  width: 280px;
+}
+
+.search-container:hover {
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.5);
+}
+
+.search-icon i {
+  color: #0077b6;
+  font-size: 1.2rem;
+}
+
+.search-input input {
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-left: 8px;
+  font-size: 1rem;
+  color: #023047;
+  width: 100%;
+}
+
+.search-results {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  max-height: 200px;
+  z-index: 100;
+}
+
+.search-results .result {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-results .result:hover {
+  background: linear-gradient(90deg, #90e0ef, #48cae4);
+  color: #023047;
+}
+
+body.dark-mode .search-container {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .search-input input {
+  color: #f1f5f9;
+}
+
+body.dark-mode .search-results {
+  background: #2c2c54;
+}
+
+body.dark-mode .search-results .result:hover {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  color: #fff;
+}
+
+/***************************
+ ⚙️ SETTINGS PANEL
+***************************/
+.Settings {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggler {
+  display: flex;
+  align-items: center;
+}
+
+.theme-buttons {
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.theme-buttons div {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.light-theme-btn {
+  background: linear-gradient(45deg, #fcd34d, #f97316);
+  color: #fff;
+}
+
+.dark-theme-btn {
+  background: linear-gradient(45deg, #3b82f6, #9333ea);
+  color: #fff;
+}
+
+.theme-buttons div.active {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.settings-btn {
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #023047;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.settings-btn:hover {
+  transform: rotate(90deg);
+  color: #0077b6;
+}
+
+body.dark-mode .settings-btn {
+  color: #f8fafc;
+}
+
+.settings-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+  width: 200px;
+}
+
+.settings-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+body.dark-mode .settings-menu {
+  background: #1e1e2f;
+  box-shadow: 0 0 20px rgba(149, 76, 233, 0.4);
+}
+
+.systems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.system {
+  background: #e0fbfc;
+  color: #023047;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.system:hover {
+  background: linear-gradient(90deg, #00b4d8, #48cae4);
+  color: #fff;
+}
+
+.system.active {
+  background: linear-gradient(90deg, #0077b6, #00b4d8);
+  color: #fff;
+}
+
+body.dark-mode .system {
+  background: #2c2c54;
+  color: #fff;
+}
+
+body.dark-mode .system.active {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+}
+
+/***************************
+ 📱 RESPONSIVE DESIGN
+***************************/
+@media (max-width: 768px) {
+  .Header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .search-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .Place {
+    font-size: 0.95rem;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .theme-buttons div {
+    width: 26px;
+    height: 26px;
+  }
+}
